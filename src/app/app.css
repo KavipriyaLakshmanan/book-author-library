@@ -1,0 +1,167 @@
+.app-background {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  /* position: relative;
+  overflow-x: hidden; */
+}
+
+
+.animated-header {
+  position: relative;
+  animation: fadeInDown 1s ease-out;
+}
+
+/* FIX: Added container for floating books */
+.floating-books-container {
+  position: relative;
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.floating-books {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 10;
+}
+
+.book-icon {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  /* background: rgba(255, 255, 255, 0.15); */
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  /* border: 2px solid rgba(255, 255, 255, 0.3); */
+  animation: bounce 3s infinite;
+  color: black;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.book-icon:hover {
+  background:white;
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: #333;
+}
+
+.book-icon:nth-child(1) {
+  animation-delay: 0s;
+  color: #74b9ff;
+}
+.book-icon:nth-child(2) {
+  animation-delay: 0.7s;
+  color: #a29bfe;
+}
+.book-icon:nth-child(3) {
+  animation-delay: 1.4s;
+  color: #ffeaa7;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(8deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(-8deg);
+  }
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.header-content {
+  padding: 2.5rem;
+  border-radius: 25px;
+  position: relative;
+  overflow: visible; /* CHANGED: from hidden to visible to show floating books */
+  margin-top: 40px; /* Added space for floating books */
+}
+
+/* Rest of your existing CSS remains the same... */
+.gradient-text {
+  background: linear-gradient(45deg, #fff, #e3f2fd, #bbdefb);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.breadcrumb-nav {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  gap: 0.5rem;
+}
+
+.breadcrumb-item {
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-item.active {
+  background: linear-gradient(135deg, #4361ee, #3a0ca3);
+  color: white;
+  box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .floating-books-container {
+    height: 60px;
+  }
+
+  .floating-books {
+    gap: 15px;
+  }
+
+  .book-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .header-content {
+    margin-top: 30px;
+    padding: 1.5rem;
+  }
+}

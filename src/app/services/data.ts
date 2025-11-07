@@ -67,7 +67,7 @@ export class DataService {
       bio: 'Indian-American author known for her short stories, novels and essays in English, and more recently, in Italian.',
       nationality: 'Indian-American',
       birthYear: 1967,
-      profileImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face',
+      profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
       totalBooks: 2
     },
     {
@@ -156,7 +156,7 @@ export class DataService {
       isbn: '9788172235539',
       publishedYear: 1980,
       genre: 'Children\'s Literature',
-      coverImage: 'https://images.unsplash.com/photo-1592816817400-965ccdf11567?w=150&h=200&fit=crop',
+      coverImage: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=150&h=200&fit=crop',
       libraryLocation: {
         name: 'Mussoorie Library',
         lat: 30.459776,
@@ -271,7 +271,7 @@ export class DataService {
       isbn: '9789381626689',
       publishedYear: 2010,
       genre: 'Mythology',
-      coverImage: 'https://images.unsplash.com/photo-1531346680769-a1d79b57de2b?w=150&h=200&fit=crop',
+      coverImage: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=150&h=200&fit=crop',
       libraryLocation: {
         name: 'Mumbai Central Library',
         lat: 18.930428,
@@ -347,7 +347,7 @@ export class DataService {
       isbn: '9788172235537',
       publishedYear: 1993,
       genre: 'Fiction',
-      coverImage: 'https://images.unsplash.com/photo-1592816817400-965ccdf11567?w=150&h=200&fit=crop',
+      coverImage: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=150&h=200&fit=crop',
       libraryLocation: {
         name: 'Allahabad Public Library',
         lat: 25.435801,

@@ -1,0 +1,155 @@
+@if (author){
+<div class="book-list">
+  <!-- Enhanced Header -->
+  <div class="header-section mb-5">
+    <div class="d-flex align-items-center justify-content-between">
+      <button class="btn back-button glass-effect" (click)="goBack()">
+        <i class="bi bi-arrow-left me-2"></i>
+        Back to Authors
+      </button>
+      <div class="text-center flex-grow-1">
+        <div class="author-header-content">
+          <h1 class="display-4 text-white mb-2 fw-bold gradient-text">
+            <i class="bi bi-person-badge me-3"></i>
+            {{ author.name }}
+          </h1>
+          <p class="text-light mb-0 fs-5 author-subtitle">
+            <i class="bi bi-journals me-2"></i>
+            Explore the literary collection
+            <span class="book-count-badge">{{ books.length }} books</span>
+          </p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="book-stats glass-effect">
+          <i class="bi bi-star-fill text-warning me-1"></i>
+          {{ getTotalPages() }} Pages Total
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Books Grid -->
+  <div class="row g-4">
+    @for(book of books; track book.id){
+    <div class="col-xl-6" >
+      <div class="card book-card h-100 glass-effect" (click)="selectBook(book)">
+        <!-- Book Color Accent -->
+
+        <div class="card-body p-4">
+          <div class="row align-items-start">
+            <!-- Enhanced Book Cover -->
+            <div class="col-auto">
+              <div class="book-cover-container">
+                <div class="book-cover-wrapper">
+                  <img
+                    [src]="book.coverImage"
+                    [alt]="book.title"
+                    class="book-cover"
+                    onerror="this.style.display='none'"
+                  >
+                  <div class="book-cover-fallback" *ngIf="!book.coverImage">
+                    <i class="bi bi-journal-text"></i>
+                  </div>
+                  <div class="book-cover-shine"></div>
+                </div>
+                <!-- Reading Progress -->
+                <div class="reading-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" [style.width]="getReadingProgress(book) + '%'"></div>
+                  </div>
+                  <small>{{ getReadingProgress(book) }}% read</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Enhanced Book Details -->
+            <div class="col">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h4 class="card-title text-white mb-1 book-title">{{ book.title }}</h4>
+                <div class="publication-year">
+                  {{ book.publishedYear }}
+                </div>
+              </div>
+
+              <!-- Book Meta Information -->
+              <div class="book-meta mb-3">
+                <span class="genre-badge" [style.background]="getGenreGradient(book.genre)">
+                  <i class="bi bi-tag me-1"></i>
+                  {{ book.genre }}
+                </span>
+                <span class="isbn-text">
+                  <i class="bi bi-upc-scan me-1"></i>
+                  {{ book.isbn }}
+                </span>
+              </div>
+
+              <!-- Pages & Rating -->
+              <div class="book-stats-row mb-3">
+                <div class="stat-item">
+                  <i class="bi bi-file-text"></i>
+                  {{ book.pages || '300' }} pages
+                </div>
+                <div class="stat-item">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  {{ getBookRating(book) }}/5
+                </div>
+                <div class="stat-item">
+                  <i class="bi bi-clock"></i>
+                  {{ getReadingTime(book) }}
+                </div>
+              </div>
+
+              <!-- Enhanced Library Info -->
+              <div class="library-info glass-effect">
+                <div class="library-header">
+                  <i class="bi bi-building library-icon"></i>
+                  <strong>Available at</strong>
+                </div>
+                <div class="library-details">
+                  <div class="library-name">{{ book.libraryLocation.name }}</div>
+                  <div class="library-address">
+                    <i class="bi bi-geo-alt"></i>
+                    {{ book.libraryLocation.address }}, {{ book.libraryLocation.city }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Footer -->
+        <div class="card-footer">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="view-location-text">
+              <i class="bi bi-map me-1"></i>
+              Explore Library Location
+            </span>
+            <div class="action-arrow">
+              <i class="bi bi-arrow-right-circle"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  </div>
+</div>
+}
+
+<!-- Enhanced Empty State -->
+@if(books.length == 0){
+<div class="empty-state-container text-center py-5">
+  <div class="empty-state-content glass-effect">
+    <div class="empty-icon">
+      <i class="bi bi-journals"></i>
+    </div>
+    <h3 class="text-white mb-3">No Books Available</h3>
+    <p class="text-light opacity-75 mb-4">This author doesn't have any books in our library yet.</p>
+    <button class="btn btn-primary" (click)="goBack()">
+      <i class="bi bi-arrow-left me-2"></i>
+      Browse Other Authors
+    </button>
+  </div>
+</div>
+}

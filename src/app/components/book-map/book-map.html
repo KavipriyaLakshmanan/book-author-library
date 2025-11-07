@@ -1,0 +1,233 @@
+@if (book) {
+<div class="book-map">
+
+  <!-- Enhanced Header -->
+  <div class="header-section mb-5">
+    <div class="d-flex align-items-center justify-content-between">
+      <button class="btn back-button glass-effect" (click)="goBack()">
+        <i class="bi bi-arrow-left me-2"></i>
+        Back to Books
+      </button>
+      <div class="text-center flex-grow-1">
+        <div class="map-header-content">
+          <h1 class="display-4 text-white mb-2 fw-bold gradient-text">
+            <i class="bi bi-geo-alt-fill me-3"></i>
+            Library Location
+          </h1>
+          <p class="text-light mb-0 fs-5 map-subtitle">
+            <i class="bi bi-journal-bookmark me-2"></i>
+            {{ book.title }} • {{ book.libraryLocation.city }}
+          </p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="location-badge glass-effect">
+          <i class="bi bi-pin-map-fill me-1"></i>
+          {{ book.libraryLocation.country }}
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- Library Hours Section - Moved above map and details -->
+<div class="library-hours-cards mb-4">
+  <div class="card glass-effect">
+    <div class="card-body ">
+      <h5 class="text-white mb-3  fw-bold text-center">
+        <i class="bi bi-clock me-2"></i>
+        Library Hours
+      </h5>
+      <div class="hours-cards-container"> 
+        <div class="hour-card" *ngFor="let hour of getLibraryHours()" [class.closed]="hour.closed">
+          <div class="day">{{ hour.day }}</div>
+          <div class="time">{{ hour.closed ? 'Closed' : hour.hours }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="row g-4">
+    <!-- Enhanced Map Column -->
+    <div class="col-lg-8">
+      <div class="card map-card glass-effect h-100">
+        <div class="card-header map-card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 text-white">
+              <i class="bi bi-map me-2"></i>
+              Interactive Map
+            </h4>
+            <div class="map-controls-top">
+              <span class="badge map-badge">
+                <i class="bi bi-geo me-1"></i>
+                {{ book.libraryLocation.city }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-0 position-relative map-container">
+          <!-- Real Google Maps Embed -->
+          <div class="map-wrapper">
+            <iframe
+              [src]="getGoogleMapsEmbedUrl()"
+              width="100%"
+              height="800"
+              style="border:0;"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Google Maps - Library Location"
+              class="google-maps-iframe">
+            </iframe>
+
+            <!-- Map Overlay Controls -->
+            <div class="map-overlay-controls">
+              <div class="zoom-controls glass-effect">
+                <button class="zoom-btn" (click)="zoomIn()">
+                  <i class="bi bi-plus-lg"></i>
+                </button>
+                <button class="zoom-btn" (click)="zoomOut()">
+                  <i class="bi bi-dash-lg"></i>
+                </button>
+              </div>
+              <div class="location-indicator glass-effect">
+                <i class="bi bi-pin-fill text-danger me-2"></i>
+                You are here
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Information Column -->
+    <div class="col-lg-4">
+      <div class="card info-card glass-effect h-100">
+        <div class="card-header info-card-header">
+          <h4 class="mb-0 text-white">
+            <i class="bi bi-info-circle me-2"></i>
+            Location Details
+          </h4>
+        </div>
+        <div class="card-body info-card-content">
+          <!-- Library Information -->
+          <div class="info-section">
+            <div class="section-header">
+              <i class="bi bi-building section-icon library-icon"></i>
+              <h5>Library Information</h5>
+            </div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-building me-2"></i>
+                  Library Name
+                </div>
+                <div class="info-value">{{ book.libraryLocation.name }}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-geo-alt me-2"></i>
+                  Address
+                </div>
+                <div class="info-value">{{ book.libraryLocation.address }}, {{book.libraryLocation.city}}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-globe me-2"></i>
+                  Country
+                </div>
+                <div class="info-value">{{ book.libraryLocation.country }}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-geo me-2"></i>
+                  Coordinates
+                </div>
+                <div class="info-value coordinate-value">
+                  {{ getCoordinates() }}
+                  <button class="btn-copy" (click)="copyCoordinates()" title="Copy coordinates">
+                    <i class="bi bi-clipboard"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Book Information -->
+          <div class="info-section">
+            <div class="section-header">
+              <i class="bi bi-journal-text section-icon book-icon"></i>
+              <h5>Book Information</h5>
+            </div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-book me-2"></i>
+                  Title
+                </div>
+                <div class="info-value">{{ book.title }}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-person me-2"></i>
+                  Author
+                </div>
+                <div class="info-value">{{ getAuthorName(book.authorId) }}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-tag me-2"></i>
+                  Genre
+                </div>
+                <div class="info-value">
+                  <span class="genre-badge" [style.background]="getGenreGradient(book.genre)">
+                    {{ book.genre }}
+                  </span>
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-calendar me-2"></i>
+                  Published
+                </div>
+                <div class="info-value">{{ book.publishedYear }}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">
+                  <i class="bi bi-upc-scan me-2"></i>
+                  ISBN
+                </div>
+                <div class="info-value isbn-value">{{ book.isbn }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+        <div class="quick-actions-section">
+          <div class="section-header">
+            <i class="bi bi-lightning-fill section-icon action-icon"></i>
+            <h5>Quick Actions</h5>
+          </div>
+          <div class="action-buttons">
+            <button class="btn action-btn btn-navigate w-100 mb-2" (click)="openInGoogleMaps()"> <!-- CORRECTION: Added w-100 and mb-2 -->
+              <i class="bi bi-google me-2"></i>
+              Open in Google Maps
+            </button>
+            <button class="btn action-btn btn-directions w-100 mb-2" (click)="getDirections()"> <!-- CORRECTION: Added w-100 and mb-2 -->
+              <i class="bi bi-signpost-2 me-2"></i>
+              Get Directions
+            </button>
+            <button class="btn action-btn btn-share w-100 mb-2" (click)="shareLocation()"> <!-- CORRECTION: Added w-100 and mb-2 -->
+              <i class="bi bi-share me-2"></i>
+              Share Location
+            </button>
+            <button class="btn action-btn btn-back w-100" (click)="goBack()"> <!-- CORRECTION: Added w-100 -->
+              <i class="bi bi-arrow-left me-2"></i>
+              Back to Books
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

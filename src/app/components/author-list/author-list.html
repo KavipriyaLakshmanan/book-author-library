@@ -1,0 +1,81 @@
+<div class="author-dashboard">
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="display-5 text-white mb-3 fw-bold">
+        <div class="book-header-icon">
+          <i class="bi bi-book-half"></i>
+        </div>
+        Popular Authors
+      </h1>
+      <p class="text-light tagline-sub">Discover amazing authors and explore their literary works</p>
+    </div>
+    <div class="col-auto">
+      <div class="author-count-badge glass-effect">
+        <i class="bi bi-people-fill me-2"></i>
+        {{ authors.length }} Authors
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    @for(author of authors;track author.id){
+    <div class="col-xl-4 col-lg-6 col-md-6">
+      <div
+        class="card author-card h-100 "
+        [class.selected]="selectedAuthor?.id === author.id"
+        (click)="selectAuthor(author)"
+      >
+        <div class="card-body p-4">
+          <!-- Author Header -->
+          <div class="row align-items-center mb-3">
+            <div class="col-auto">
+              <div class="author-avatar">
+                <img
+                  [src]="author.profileImage"
+                  [alt]="author.name"
+                  class="author-image"
+                  onerror="this.style.display='none'"
+                >
+                @if(!author.profileImage){
+                <div class="avatar-fallback">
+                  {{ getAuthorInitials(author.name) }}
+                </div>
+                }
+              </div>
+            </div>
+            <div class="col">
+              <h4 class="card-title mb-1 text-white">{{ author.name }}</h4>
+              <p class="card-text author-meta mb-2">
+                <i class="bi bi-globe me-1"></i>
+                {{ author.nationality }} • Born {{ author.birthYear }}
+              </p>
+              <div class="book-count-badge">
+                <i class="bi bi-book me-1"></i>
+                {{ author.totalBooks }} Books
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Author Bio -->
+          <p class="card-text author-bio">{{ author.bio }}</p>
+        </div>
+
+        <!-- Interactive Footer -->
+        <div class="card-footer">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="view-books-text">
+              <i class="bi bi-eye me-1"></i>
+              Explore Books
+            </span>
+            <div class="arrow-container">
+              <i class="bi bi-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
